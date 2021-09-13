@@ -12,6 +12,7 @@ interface actualLine {
   lineId: lineId;
   index: number;
   value: lineValue;
+  depth: number; // 深さ
   displayStart: number | undefined; // こっちはindexを参照する 実際のLineのindex
   displayEnd: number | undefined; // こっちはindexを参照する 実際のLineのindex
 }

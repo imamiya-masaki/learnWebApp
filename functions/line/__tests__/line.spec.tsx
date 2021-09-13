@@ -1,6 +1,7 @@
-import displayLine from "functions/line/displayLine"
+import displayLine from "../displayLine"
 import { line, actualLine, lineId, lineValue } from "interfaces/line"
-
+import rfdcFunc from "rfdc"
+const clone = rfdcFunc()
 /*
 <div>
   <any>title<any>
@@ -113,7 +114,22 @@ const lines1: {[key: lineId]: line } = {
 
 describe('displayLine', () => {
  test('lines1でdisplayLineを実行したあとに、lines1Stringの状態にできるか', () => {
-   
+  const lines: {[key: lineId]: line} = clone(lines1)
+  const startLine: lineId = 0
+  const catchDisplayLine = displayLine(lines, startLine)
+  const outputStringArray: string[] = []
+  const correctString = lines1String
+  outputStringArray.push('')
+  for (let i = 0; i < catchDisplayLine.length; i++) {
+    const dLine = catchDisplayLine[i]
+    const indent = "  "
+    let indents = ""
+    for (let j = 0; j < dLine.depth; j++) {
+      indents = indents + indent
+    }
+    outputStringArray.push(`${ indents }${dLine.value}`)
+  }
+  expect(outputStringArray.join('\n')).toEqual(correctString)
  })
 })
 
